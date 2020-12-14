@@ -37,18 +37,25 @@ function ImageCompressor() {
 		});
 		let downloadLink = URL.createObjectURL(blob);
 		setcompressedURL(downloadLink);
+
+		setTimeout(() => {
+			downloadLink = URL.revokeObjectURL(blob);
+			setcompressedURL(downloadLink);
+		}, 2000);
 	};
 
-	if (compressedImg !== null) {
-		console.log(compressedImg.size / 1024 / 1024);
-
-		console.log(img.size / 1024 / 1024);
-	}
-
 	return (
-		<div>
-			<label htmlFor="file-input">Choose an image</label>
-			<input type="file" accept="image/*" onChange={handleImageUpload} />
+		<div className="image-compressor">
+			<div className="file-container">
+				<label htmlFor="file-input">Choose an image</label>
+				<input
+					type="file"
+					accept="image/*"
+					onChange={handleImageUpload}
+					className="file file-custom"
+				/>
+			</div>
+
 			<label htmlFor="compress-button ">Compress</label>
 			<button className="btn btn-outline" onClick={compress}>
 				Compress
